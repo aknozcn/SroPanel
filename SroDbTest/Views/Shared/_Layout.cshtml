@@ -1,0 +1,450 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<!doctype html>
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]>
+<html lang="en" class="no-js"> <![endif]-->
+<html lang="en">
+
+<!-- Mirrored from tasarim3.remopanel.com/iletisim.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jul 2020 21:21:28 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <title>@ViewBag.Title | SroPanel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="media/images/favicon.ico" />
+    <link rel="stylesheet" href="media/css/bootstrap.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="media/css/font-awesome.min.css" type="text/css" media="screen">
+    <link rel="stylesheet" type="text/css" href="media/css/slicknav.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="media/css/style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="media/css/responsive.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="media/css/animate.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="media/css/colors/red.css" title="red" media="screen" />
+    <script type="text/javascript" src="media/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="media/javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="media/javascripts/jquery.migrate.js"></script>
+    <script type="text/javascript" src="media/javascripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="media/javascripts/modernizrr.js"></script>
+    <script type="text/javascript" src="media/javascripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="media/javascripts/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="media/javascripts/jquery.appear.js"></script>
+    <script type="text/javascript" src="media/javascripts/jquery.slicknav.js"></script>
+    <script type="text/javascript" src="media/javascripts/script.js"></script>
+    <script src="~/js/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/js/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                setNavActive('#contact')
+            })
+        </script>*@
+
+</head>
+<body>
+    <div id="container">
+        <div class="hidden-header"></div>
+        <header class="clearfix">
+            <div class="top-bar dark-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="top-bar-left">
+                                <li><a href="user/index.html"><i class="fa fa-envelope-o"></i> Destek</a></li>
+                                <li><a href="search.html"><i class="fa fa-search"></i> Arama</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="top-bar-right">
+                                @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                                {
+                                    <li><a asp-action="LogOut" asp-controller="Account"><i class="fa fa-user"></i>Çıkış Yap</a></li>
+                                }
+                                else
+                                {
+                                    <li><a asp-action="Login" asp-controller="Account"><i class="fa fa-sign-in"></i> Giriş Yap</a></li>
+                                    <li><a asp-action="Index" asp-controller="Register"><i class="fa fa-user"></i> Kayıt Ol</a></li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar navbar-default navbar-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <!-- Stat Toggle Nav Link For Mobiles -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <!-- End Toggle Nav Link For Mobiles -->
+                        <a class="navbar-brand" href="index.html">
+                            <img src="../remopanel.com/demologo.png" alt="...">
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+
+                            @{
+                                var rv = ViewContext.RouteData.Values;
+                                var id = $"{rv["Controller"]}-{rv["Action"]}".ToLowerInvariant();
+                            }
+
+                            <li id="home"><a class="@(id == "home-index" ? "active" : "")" asp-action="Index" asp-controller="Home">Anasayfa</a></li>
+                            <li id="download"><a class="@(id == "download-index" ? "active" : "")" asp-controller="Download" asp-action="Index">Oyunu İndir</a></li>
+                            <li id="mall"><a class="@(id == "store-index" ? "active" : "")" asp-action="Index" asp-controller="Store">Market</a></li>
+                            <li id="faq"><a class="@(id == "userstats-index" ? "active" : "")" asp-action="Index" asp-controller="UserStats">İstatistikler</a></li>
+                            <li id="ranking"><a class="@(id == "ranking-index" ? "active" : "")" asp-action="Index" asp-controller="Ranking">Sıralama</a></li>
+                            <li id="contact"><a class="@(id == "contact-index" ? "active" : "")" asp-action="Index" asp-controller="Contact">İletişim</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <ul class="wpb-mobile-menu">
+                    <li>
+                    <li><a href="index-2.html">Anasayfa</a></li>
+                    <li><a href="download.html">Oyunu İndir</a></li>
+                    <li><a href="market.html">Market</a></li>
+                    <li><a href="userstats.html">İstatistikler</a></li>
+                    <li><a href="ranking.html">Sıralama</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                </ul>
+            </div>
+        </header>
+
+        @{
+            if (id == "home-index")
+            {
+                @await Component.InvokeAsync("Slider");
+            }
+
+        }
+
+        <div class="page-banner" style="padding:40px 0; background: #f9f9f9;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>@ViewBag.Title</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="breadcrumbs">
+                            <li><a href="index.html">Anasayfa</a></li>
+                            <li>@ViewBag.Title</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content">
+            <div class="container">
+                <div class="row">
+
+                    @RenderBody()
+
+                    <div class="@(ViewBag.Title == "Sıralama"?"col-md-3 sidebar right-sidebar":"col-md-3 col-md-offset-1 sidebar right-sidebar")">
+
+                        <div class="widget widget-server-status">
+                            <h4>Sunucu Durumu <span class="head-line"></span></h4>
+                            <div class="progressbar-text">
+                                0 / 1000
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"
+                                     data-percentage="0">
+                                    <span class="progress-bar-span">
+                                        0%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="widget widget-ranking">
+                            <h4>Sıralama <span class="head-line"></span></h4>
+                            <div class="btn-group-sm" id="rank-menu">
+                                <a class="btn btn-system border-btn active" data-type="player-mini">Player</a>
+                                <a class="btn btn-system border-btn" data-type="guild-mini">Guild</a>
+                                <a class="btn btn-system border-btn" data-type="unique-mini">Unique</a>
+                                <a class="btn btn-system border-btn" data-type="pvp-mini">PvP</a>
+                            </div>
+                            <div class="ranking-mini">
+                                <div id="ajaxloader"></div>
+                                <div id="rank-result">
+
+                                </div>
+                                <div class="text-center">
+                                    <a href="ranking.html" class="btn btn-system border-btn">Tüm Sıralamayı Gör</a>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('.ranking-mini #ajaxloader').append('<div class="loaderHorizontal"></div>');
+                                    $.post('ranks.html', { action: 'player-mini' })
+                                        .done(function (data) {
+                                            $('.ranking-mini #ajaxloader').find('.loaderHorizontal').remove();
+                                            $('#rank-result').html(data).show('blind');
+                                        })
+                                        .fail(function (data) {
+                                            $('.ranking-mini #ajaxloader').find('.loaderHorizontal').remove();
+                                            $('#rank-result').html('İşlem Gerçekleştirilemedi.').show('blind');
+                                        });
+                                    return false;
+                                });
+
+                                $('#rank-menu').find('a').click(function () {
+                                    var type = $(this).data('type'), btn = $(this);
+
+                                    $('.ranking-mini #ajaxloader').append('<div class="loaderHorizontal"></div>');
+                                    $('#rank-result').empty().show('blind');
+                                    $.post('ranks.html', { action: type })
+                                        .done(function (data) {
+                                            $('#rank-menu').find('a.active').removeClass('active');
+                                            btn.addClass('active');
+                                            $('.ranking-mini #ajaxloader').find('.loaderHorizontal').remove();
+                                            $('#rank-result').html(data).show('blind');
+                                        })
+                                        .fail(function (data) {
+                                            $('.ranking-mini #ajaxloader').find('.loaderHorizontal').remove();
+                                            $('#rank-result').html('İşlem Gerçekleştirilemedi.').show('blind');
+                                        });
+                                    return false;
+                                })
+                            </script>
+                        </div>
+                        <div class="widget widget-fortress">
+                            <h4>Kale Sahipleri <span class="head-line"></span></h4>
+                            <div id="jangan_fortress" class="fortress">
+                                <div class="fortname">Jangan Fortress</div>
+                                <div class="guildname">Hiç kimse</div>
+                                <div class="guildtax">Tax: 20%</div>
+                            </div>
+                            <div id="hotan_fortress" class="fortress">
+                                <div class="fortname">Hotan Fortress</div>
+                                <div class="guildname">Hiç kimse</div>
+                                <div class="guildtax">Tax: 20%</div>
+                            </div>
+                        </div>
+
+                        <div class="widget widget-schedule">
+                            <h4>Etkinlik Takvimi <span class="head-line"></span></h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td><span style="font-weight: bold">Sunucu Saati</span></td>
+                                        <td><span id="cur_time">00:00:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Fortress War</span></td>
+                                        <td><span id="fortress">00:00:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Selkish / Neith</span></td>
+                                        <td><span id="selkis_neith">00:00:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Anubis / Isis</span></td>
+                                        <td><span id="anubis_isis">00:00:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">CTF</span></td>
+                                        <td><span id="ctf">00:00:00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">BA (Random)</span></td>
+                                        <td><span id="ba_random">00:00:00</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <script type="text/javascript">
+                                var iTimeStamp = "1594156731" - Math.round(+new Date() / 1000);
+                                var ServerTime = new Date('2020-07-08 00:18:51');
+                                window.setInterval('serverTime()', 999);
+                                tTimer(iTimeStamp, "1594575240", "fortress");
+                                window.setInterval('tTimer(iTimeStamp,"1594575240","fortress")', 250);
+                                tTimer(iTimeStamp, "1594164600", "selkis_neith");
+                                window.setInterval('tTimer(iTimeStamp,"1594164600","selkis_neith")', 250);
+                                tTimer(iTimeStamp, "1594171800", "anubis_isis");
+                                window.setInterval('tTimer(iTimeStamp,"1594171800","anubis_isis")', 250);
+                                tTimer(iTimeStamp, "1594158900", "ctf");
+                                window.setInterval('tTimer(iTimeStamp,"1594158900","ctf")', 250);
+                                tTimer(iTimeStamp, "1594162500", "ba_random");
+                                window.setInterval('tTimer(iTimeStamp,"1594162500","ba_random")', 250);
+                            </script>
+                        </div>
+
+                        <div class="widget widget-schedule">
+                            <h4>Ödeme Yöntemleri <span class="head-line"></span></h4>
+                            <div class="text-center">
+                                <a href="http://www.maxigame.org/odeme-secenekleri.html" target="_blank">
+                                    <img src="maxicard/img/sol_banner.gif">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="widget widget-stats">
+                            <h4>Server Bilgileri <span class="head-line"></span></h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td><span style="font-weight: bold">Exp Rate</span></td>
+                                        <td>300x</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Sp Rate</span></td>
+                                        <td>300x</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Level Cap</span></td>
+                                        <td>120</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Mastery Cap</span></td>
+                                        <td>240 / 360</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Silk</span></td>
+                                        <td>1M Free</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-weight: bold">Version</span></td>
+                                        <td>v1.4xxx</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="widget widget-sponsors">
+                            <h4>Sponsorlar <span class="head-line"></span></h4>
+                            <div style="text-align: center; margin-bottom: 10px">
+                                <a href="http://www.joymax.org/" title="Joymax.org" target="_blank">
+                                    <img src="media/images/sponsorlar/j3.png" style="width: 160px; height: auto;" />
+                                </a>
+                            </div>
+                            <div style="text-align: center;">
+                                <a href="http://www.listofserver.com/" title="List of Server" target="_blank">
+                                    <img src="media/images/sponsorlar/los1.png" style="width: 190px; height: auto;" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row footer-widgets">
+                <div class="footer-widget social-widget">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="https://www.facebook.com/RemoPanel/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="youtube" href="3435.html" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                        <li><a class="google" href="#" target="_blank"><i class="fa fa-google"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright-section">
+                <p>
+                    Copyright &copy; 2020 Remo. All rights reserved. | Coded by <a href='http://remopanel.com/' target='_blank'>Remo</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    @*<div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="modal-login-label"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                        </button>
+                        <h3 class="modal-title" id="modal-login-label">Kullanıcı Girişi</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <form asp-action="Login" asp-controller="Account" method="post">
+                            <input type="hidden" name="action" value="login" />
+                            <div class="form-group has-feedback">
+                                <label class="sr-only" for="logusername">Kullanıcı Adı</label>
+                                <input type="text" asp-for="loginDTO.StrUserID" placeholder="Kullanıcı Adı" class="form-control">
+                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                <span asp-validation-for="loginDTO.StrUserID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group  has-feedback">
+                                <label class="sr-only" for="logpassword">Password</label>
+                                <input type="password" asp-for="loginDTO.password" placeholder="Şifre" class="form-control">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                <span asp-validation-for="loginDTO.password" class="text-danger"></span>
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-danger">Giriş Yap</button>
+                            </div>
+                            <div class="pull-left">
+                                <a id="lostpw-link" href="#">Şifremi unuttum</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                        <form id="lostpw-form" method="post" style="display: none">
+                            <input type="hidden" name="action" value="rememberpass" />
+                            <div class="form-group has-feedback">
+                                <label class="sr-only" for="lpusername">Kullanıcı Adı</label>
+                                <input type="text" name="username" placeholder="Kullanıcı Adı" class="form-control"
+                                       id="lpusername">
+                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            </div>
+
+                            <div class="form-group has-feedback">
+                                <label class="sr-only" for="lpemail">Email</label>
+                                <input type="text" name="email" placeholder="Email" class="form-control" id="lpemail">
+                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            </div>
+
+                            <div class="form-group has-feedback">
+                                <label class="sr-only" for="lpgizliy">Gizli Yanıt</label>
+                                <input type="text" name="gizliy" placeholder="Gizli Yanıt" class="form-control"
+                                       id="lpgizliy">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+
+                            <div class="form-group has-feedback">
+                                <label class="sr-only" for="lppassword">Yeni Şifre</label>
+                                <input type="password" name="password" placeholder="Yeni Şifre" class="form-control"
+                                       id="lppassword">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+
+                            <div class="form-group has-feedback">
+                                <label class="sr-only" for="lppassagain">Yeni Şifre (tekrar)</label>
+                                <input type="password" name="passagain" placeholder="Yeni Şifre (tekrar)"
+                                       class="form-control" id="lppassagain">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Gönder</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </anonymoustemplate>
+    <loggedintemplate></loggedintemplate>
+    </asp:loginview>
+
+
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+    <div id="loader">
+        <div class="spinner">
+            <div class="dot1"></div>
+            <div class="dot2"></div>
+        </div>
+    </div>
+</body>
+
+<!-- Mirrored from tasarim3.remopanel.com/iletisim.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 07 Jul 2020 21:21:28 GMT -->
+</html>

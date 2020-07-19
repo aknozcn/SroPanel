@@ -1,0 +1,113 @@
+﻿@model RegisterDTO
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Kayıt Ol";
+}
+
+<div class="col-md-8">
+	<div class="form-reg-block center-block">
+		<h4 class="classic-title"><span>Kayıt Ol</span></h4>
+		<form class="form-horizontal" asp-controller="Register" asp-action="Index" method="post">
+			<input type="hidden" name="action" value="register" />
+			<div class="form-group has-feedback">
+				<label for="regusername" class="col-sm-4 control-label">
+					Kullanıcı Adı <span class="text-danger">*</span>
+				</label>
+
+				<div class="col-sm-8">
+					<input type="text" class="form-control" name="StrUserID" asp-for="StrUserID" />
+					<span asp-validation-for="StrUserID" class="text-danger"></span>
+					<i class="fa fa-user form-control-feedback"></i>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label for="password" class="col-sm-4 control-label">
+					Şifre <span class="text-danger">*</span>
+				</label>
+
+				<div class="col-sm-8">
+					<input type="password" class="form-control" name="password" asp-for="password" />
+					<span asp-validation-for="password" class="text-danger"></span>
+					<i class="fa fa-lock form-control-feedback"></i>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label for="repassword" class="col-sm-4 control-label">
+					Şifre (Tekrar) <span class="text-danger">*</span>
+				</label>
+
+				<div class="col-sm-8">
+					<input type="password" class="form-control" name="repassword" asp-for="password" />
+					<span asp-validation-for="password" class="text-danger"></span>
+					<i class="fa fa-lock form-control-feedback"></i>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label for="email" class="col-sm-4 control-label">
+					E-Posta Adresi <span class="text-danger">*</span>
+				</label>
+
+				<div class="col-sm-8">
+					<input type="text" class="form-control" name="Email" asp-for="Email" />
+					<span asp-validation-for="Email" class="text-danger"></span>
+					<i class="fa fa-envelope form-control-feedback"></i>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label for="gizliy" class="col-sm-4 control-label">
+					Gizli Yanıt <span class="text-danger">*</span>
+				</label>
+
+				<div class="col-sm-8">
+					<input type="text" class="form-control" name="address" asp-for="address" />
+					<span asp-validation-for="address" class="text-danger"></span>
+					<i class="fa fa-user-secret form-control-feedback"></i>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label for="security_code" class="col-sm-4 control-label">
+					Captcha <span class="text-danger">*</span>
+				</label>
+				<div class="col-sm-8">
+					<div class="g-recaptcha" data-sitekey="6Lc8AbAZAAAAADnHudmIZa4JIZwRxNKQQO8GeAfH"></div>
+				</div>
+			</div>
+
+			@if (TempData["Success"] != null)
+			{
+				<div class="row">
+					<div class="col-sm-offset-4 col-sm-8">
+						<div class="alert alert-success" role="alert">
+							@TempData["Success"]
+						</div>
+
+					</div>
+				</div>
+			}
+			else if (TempData["Fail"] != null)
+			{
+				<div class="row">
+					<div class="col-sm-offset-4 col-sm-8">
+						<div class="alert alert-danger" role="alert">
+							@TempData["Fail"]
+						</div>
+
+					</div>
+				</div>
+			}
+
+
+			<div class="row">
+				<div class="col-sm-offset-4 col-sm-8">
+					<span>Kayıt olarak <a href="uyeliksozlesmesi.html" target="_blank"><b>sözleşmeyi</b></a> kabul ederim.</span>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="form-inline col-sm-offset-4 col-sm-8">
+					<button type="submit" class="btn-system btn-medium border-btn">Kayıt Ol</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

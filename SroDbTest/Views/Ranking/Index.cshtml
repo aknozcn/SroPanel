@@ -1,0 +1,68 @@
+﻿
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Sıralama";
+}
+
+<div class="col-md-2">
+	<h4 class="classic-title"><span>Menü</span></h4>
+	<div id="ranking-menu" class="btn-group-vertical btn-block">
+		<a class="btn btn-danger active" href="#" data-link="playerrank">Player Rank</a>
+		<a class="btn btn-danger" href="#" data-link="guildrank">Guild Rank</a>
+		<a class="btn btn-danger" href="#" data-link="unionrank">Union Rank</a>
+		<a class="btn btn-danger" href="#" data-link="uniquerank">Unique Rank</a>
+		<a class="btn btn-danger" href="#" data-link="thiefrank">Thief Rank</a>
+		<a class="btn btn-danger" href="#" data-link="traderrank">Trader Rank</a>
+		<a class="btn btn-danger" href="#" data-link="hunterrank">Hunter Rank</a>
+		<a class="btn btn-danger" href="#" data-link="honorrank">Honor Rank</a>
+		<a class="btn btn-danger" href="#" data-link="pvprank">PvP Rank</a>
+		<a class="btn btn-danger" href="#" data-link="extunique">Anlık Unique</a>
+		<a class="btn btn-danger" href="#" data-link="extpvp">Anlık PvP</a>
+	</div>
+</div>
+<div class="col-md-7" id="ranking">
+	<h4 id="ranking-title" class="classic-title"><span>Player Rank</span></h4>
+	<div id="ajaxloader"></div>
+	<div id="ranking-result">
+
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var loader = $('#ranking').find('#ajaxloader');
+
+		loader.append('<div class="loaderHorizontal"></div>');
+		$.post('ranks.html', { action: 'playerrank' })
+			.done(function (data) {
+				loader.find('.loaderHorizontal').remove();
+				$('#ranking-result').html(data).show('blind');
+			})
+			.fail(function () {
+				loader.find('.loaderHorizontal').remove();
+				$('#ranking-result').html('İşlem gerçekleştirilemedi.').show('blind');
+			});
+
+		return false;
+	});
+
+	$('#ranking-menu').find('a').click(function () {
+		var btn = $(this), link = btn.data('link'), loader = $('#ranking').find('#ajaxloader'), title = btn.text();
+
+		loader.append('<div class="loaderHorizontal"></div>');
+		$('#ranking-result').empty().show('blind');
+		$.post('ranks.html', { action: link })
+			.done(function (data) {
+				btn.parent().find('.active').removeClass('active');
+				btn.addClass('active');
+				$('#ranking-title').find('span').text(title);
+				loader.find('.loaderHorizontal').remove();
+				$('#ranking-result').html(data).show('blind');
+			})
+			.fail(function (data) {
+				loader.find('.loaderHorizontal').remove();
+				$('#ranking-result').html('İşlem gerçekleştirilemedi.').show('blind');
+			});
+
+		return false;
+	})
+</script>

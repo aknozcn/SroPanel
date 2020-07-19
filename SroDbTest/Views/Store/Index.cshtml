@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@model TB_User
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Market";
+}
+
+<div class="col-md-8">
+	<h4 class="classic-title"><span>Market</span></h4>
+
+
+	@if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+	{
+		<p class="text-center text-success">
+			Başarılı ile giriş yapılmıştır
+		</p>
+	}
+	else
+	{
+		<p class="text-center text-danger">
+			Market sistemimiz üyelere özel bir bölümdür. Sizde hemen kayıt olarak yada giriş yaparak market sisteminden yararlanabilirsiniz.
+		</p>
+	}
+
+</div>
